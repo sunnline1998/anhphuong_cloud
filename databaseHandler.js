@@ -1,6 +1,9 @@
-const {MongoClient,ObjectId} = require('mongodb')
 
-const Database_URL = 'http://mongodb+srv://anhphuong:123456abc@cluster0.qef5g.mongodb.net/test'
+const async = require('hbs/lib/async');
+const {ObjectId} = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
+
+const Database_URL = 'mongodb+srv://haanhphuong:123456abc@cluster0.qef5g.mongodb.net/test'
 const DATABASE_NAME = 'asm2cloud'
 
 async function insertToDB(obj,collectionName){

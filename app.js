@@ -1,4 +1,6 @@
 const express = require ('express')
+const async = require('hbs/lib/async')
+const {ObjectId} = require('mongodb')
 const { insertToDB, getAll, deleteObject,getDocumentById , updateDocument} = require('./databaseHandler')
 const app = express()
 
@@ -41,7 +43,7 @@ app.post('/editProduct', async(req, res) =>{
     const id = req.body.txtId
     const name = req.body.txtName
     const price = req.body.txtPrice
-    const url = req.body.txtUrl;
+    const url = req.body.txtURL;
     let updateValues = {$set: {name: name, price: price, picture: url}};
     await updateDocument(id, updateValues, "Product")
     res.redirect('/')
@@ -52,16 +54,17 @@ app.post('/insert', async (req, res) => {
     const name = req.body.txtName
     const price = req.body.txtPrice
     const url = req.body.txtURL;
-    if(url.length == 0){
+    const category = req.body.txtCate;  
+    if(url.length  == 0){
         var result = await getAll("Product")
-        res.render('home', {products: result, picError:'must to insert picture'})
-    }else{
-
-        const obj = {name: name, price: price, picture: url}
+        res.render('home', {products: result, picError:'You must to insert picture'})
+    }else{  
+        const obj = {name: name, price: price, picture: url, category: category}
         await insertToDB(obj,"Product")
         res.redirect('/')
     }
 })
+
 
 
 
